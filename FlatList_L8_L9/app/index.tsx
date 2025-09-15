@@ -1,3 +1,5 @@
+import ListItemSeparator from "@/components/ListItemSeperator";
+import { DATA, dataType } from "@/data/appData";
 import colors from "@/styles/colors";
 import defaultStyles from "@/styles/defaultStyles";
 import { useState } from "react";
@@ -12,18 +14,7 @@ import {
 
 
 export default function Index() {
-  // declare datatype for each item in array
-  type dataType ={
-    id: string; //unique identifier
-    title: string; // text displayed in flatlist
-  }
-
-  const DATA: dataType[] = [
-    {id: '1', title: 'First Item'},
-    {id: '2', title: 'Second Item'},
-    {id: '3', title: 'Third Item'},
-    {id: '4', title: 'Fourth Item'},
-  ];
+  
 
   //create a state var to keep track of selected id
   const [selectedId, setSelectedId] = useState<string>("1");
@@ -41,8 +32,13 @@ export default function Index() {
       <View style={[defaultStyles.textContainer, { flex: 1 }]}>
         <View style={styles.flatlist}>
           <FlatList
+
             data = {DATA}
             keyExtractor={(item: dataType) => item.id}
+            extraData = {selectedId}
+            ItemSeparatorComponent={() => 
+              <ListItemSeparator color = 'lightblue'/>
+            }   
             renderItem={({item}) => (
               <TouchableOpacity onPress={()=>itemSelected(item)}>
                 <View style = {[styles.flatListRow,
@@ -54,7 +50,7 @@ export default function Index() {
                   <Text style = {[styles.titleText,
                     {
                       backgroundColor: item.id === selectedId?
-                      colors.primary: colors.secondary
+                      colors.text.dark: colors.text.light
                     }
                   ]}>{item.title}</Text>
                 </View>
@@ -72,9 +68,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   flatListRow:{
-    backgroundColor: 'lightblue',
-    margin: 5,
-    padding: 5,
+    marginTop: 5,
+    width: 300,
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
   },
   titleContainer: {
     marginTop: 5,
