@@ -10,8 +10,9 @@ type propsType = {
   isSelected: boolean;
   onPress: (item: dataType) => void;
 }
+
 const ListItem: React.FC<propsType>= ({item,isSelected,onPress}) => {
-  return  <TouchableOpacity onPress={()=>itemSelected(item)}>
+  return  <TouchableOpacity onPress={()=>onPress(item)}>
                 <View style = {[styles.flatListRow,
                   {
                     backgroundColor: isSelected?
@@ -20,8 +21,8 @@ const ListItem: React.FC<propsType>= ({item,isSelected,onPress}) => {
                 ]}>
                   <Text style = {[styles.titleText,
                     {
-                      backgroundColor: isSelected?
-                      colors.text.dark: colors.text.light
+                      color: isSelected?
+                      colors.secondary: colors.primary
                     }
                   ]}>{item.title}</Text>
                 </View>
@@ -31,17 +32,15 @@ const ListItem: React.FC<propsType>= ({item,isSelected,onPress}) => {
 export default ListItem;
 
 const styles = StyleSheet.create({
-  list: {
-    backgroundColor: colors.secondary,
-    padding: 5,
-    height: 60,
-    width: 350,
+  
+  flatListRow:{
+    marginTop: 5,
+    width: 300,
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
-    marginTop: 5,
   },
-  text: {
-    color: colors.text.dark,
-    fontSize: 20,
+  titleText: {
+    fontSize: 24,
+    padding: 10,
   },
 });
